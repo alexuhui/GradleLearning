@@ -1,0 +1,35 @@
+// task hello {
+//     doLast {
+//         println 'Hello world!'
+//     }
+// }
+
+// 简化
+// task hello {
+//     println 'Hello world!'
+// }
+
+// task upper {
+//     String someString = 'mY_nAmE'
+//     println "Original: " + someString
+//     println "Upper case: " + someString.toUpperCase()
+// }
+
+// task count {
+//     4.times { print "$it " }
+//     println()
+// }
+
+// task intro(dependsOn: hello){
+//     println "I'm Gradle"
+// }
+
+task taskX{
+    println 'taskX'
+}
+
+task taskY{
+    println 'taskY'
+}
+
+taskX.dependsOn(taskY)

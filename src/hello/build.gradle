@@ -24,12 +24,28 @@
 //     println "I'm Gradle"
 // }
 
-task taskX{
-    println 'taskX'
+// task taskX{
+//     println 'taskX'
+// }
+
+// task taskY{
+//     println 'taskY'
+// }
+
+// taskX.dependsOn(taskY)
+
+// ------------- 可能是语法改了？
+// ------------- 像教程中 用上面的方式设置依赖是不行的
+// ------------- 根据官方文档用下面的方式是生效的  taskY 先于 taskX执行
+// -- https://docs.gradle.org/current/userguide/more_about_tasks.html#sec:adding_dependencies_to_tasks
+tasks.register('taskX')  {
+    dependsOn 'taskY'
+    doLast {
+        println 'taskX'
+    }
 }
 
-task taskY{
+tasks.register('taskY'){
     println 'taskY'
 }
 
-taskX.dependsOn(taskY)

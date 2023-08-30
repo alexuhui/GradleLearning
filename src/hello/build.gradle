@@ -38,14 +38,79 @@
 // ------------- 像教程中 用上面的方式设置依赖是不行的
 // ------------- 根据官方文档用下面的方式是生效的  taskY 先于 taskX执行
 // -- https://docs.gradle.org/current/userguide/more_about_tasks.html#sec:adding_dependencies_to_tasks
-tasks.register('taskX')  {
-    dependsOn 'taskY'
-    doLast {
-        println 'taskX'
+// tasks.register('taskX')  {
+//     dependsOn 'taskY'
+//     doLast {
+//         println 'taskX'
+//     }
+// }
+
+// tasks.register('taskY'){
+//     println 'taskY'
+// }
+
+
+//
+// 4.times { counter ->
+//     task "task$counter"{
+//         doLast{
+//             println "I'm task number $counter"
+//         }
+//     }
+// }
+// task2.dependsOn task3
+// task0.dependsOn task2
+
+// task hello {
+//     doLast {
+//         println 'Hello www.flydean.com!'
+//     }
+// }
+// task intro {
+//     dependsOn hello
+//     doLast {
+//         println "I'm flydean"
+//     }
+// }
+
+task hello {
+    ext.value = "test ext value"
+    doLast{
+        println 'Hello doLast 000'
     }
 }
 
-tasks.register('taskY'){
-    println 'taskY'
+hello{
+    println 'Hello 111'
+}
+hello{
+    println 'Hello 000'
+}
+hello{
+    println 'Hello 222'
+}
+
+hello.doFirst {
+    println 'Hello doFirst'
+}
+hello.doLast {
+    println 'Hello doLast 111'
+
+    println value
+}
+
+task depends{
+    println hello.value
+    doLast{
+        println 'depends'
+    }
+}
+
+depends.dependsOn hello
+
+// 实验发现，没有被doLast 包起来的task 无论执行哪条task 它都会被执行
+// 并且： 1 所有最外层语句按定义顺序执行   2 外层语句先于其它语句执行（比如包在doFirst 、 doLast里面的语句）
+task ttt{
+    println "ttttt"
 }
 

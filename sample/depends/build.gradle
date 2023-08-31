@@ -1,0 +1,36 @@
+task taskX {
+    doLast{
+        println 'taskX'
+    }
+}
+
+task taskY(dependsOn:taskX){
+    doLast{
+        println "taskY"
+    }
+}
+
+taskY.dependsOn{
+    tasks.findAll{
+        // task -> task.name.startsWith('prefix')
+        task -> task.name.endsWith('suffix')
+    }
+}
+
+task prefix0{
+    doLast{
+        println "prefix0"
+    }
+}
+
+task prefix1{
+    doLast{
+        println "prefix1"
+    }
+}
+
+task xxsuffix{
+    doLast{
+        println "xxsuffix"
+    }
+}
